@@ -17,7 +17,7 @@
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
   <h1 style="text-align: center; color: var(--text-color, black);">
-      Sistem Inventori Laboratorium Biologi
+      Hotel Amira
   </h1>
   <form method="POST" action="{{ route('login') }}">
       @csrf
