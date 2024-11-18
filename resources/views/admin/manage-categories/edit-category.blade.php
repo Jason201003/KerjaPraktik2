@@ -1,4 +1,3 @@
-<!-- resources/views/admin/category/edit-category.blade.php -->
 @extends('layouts.admin')
 
 @section('title', 'Edit Category')

@@ -48,12 +48,17 @@
             <hr class="sidebar-divider">
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="{{ url('manage-categories') }}"
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                         aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-cog"></i>
-                        <span>Category</span>
+                        <span>Manage Kamar</span>
                     </a>
-                </li>   
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{ url('/manage-categories') }}">Manage Category</a>
+                            <a class="collapse-item" href="{{ url('/manage-kamar') }}">Manage Kamar</a>                        </div>  
+                    </div>
+                </li>
         
                 <!-- Only show Kelola User for Admin -->
                 <li class="nav-item">

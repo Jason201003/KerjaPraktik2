@@ -1,4 +1,3 @@
-<!-- resources/views/kelola-kamar/add-kamar.blade.php -->
 @extends('layouts.admin')
 
 @section('content')
