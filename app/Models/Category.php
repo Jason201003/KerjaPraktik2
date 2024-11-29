@@ -10,9 +10,6 @@ class Category extends Model
 {
     use HasFactory;
 
-    // Specify the table name (optional if it follows Laravel's naming convention)
-    protected $table = 'categories';
-
     // Specify the fillable fields for mass assignment
     protected $fillable = ['name', 'slug'];
 

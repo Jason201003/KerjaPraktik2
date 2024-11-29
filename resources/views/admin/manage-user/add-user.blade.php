@@ -50,9 +50,7 @@
                         @error('role')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                    
-                    
+                    </div>       
 
                     <div class="mb-3">
                         <label for="email" class="form-label">email</label>

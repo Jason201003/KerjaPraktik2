@@ -9,7 +9,15 @@ class Kamar extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['id','created_at', 'updated_at'];
+    protected $fillable = [
+        'room_number',
+        'kapasitas',
+        'tipe_bed',
+        'harga',
+        'fasilitas',
+        'deskripsi',
+        'category_id'
+    ];
 
     public function category() {
         return $this->belongsTo(Category::class);

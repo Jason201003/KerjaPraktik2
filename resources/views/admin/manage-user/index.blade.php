@@ -18,9 +18,8 @@
         <div class="card">
             <div class="card-header d-flex align-items-center">
                 <h2>Daftar {{ $role }}</h2>
-                <a href="/manage-user-add-{{ strtolower($role) }}" class="btn btn-success btn-sm ml-auto">Tambah 
+                <a href="/admin/manage-user-add-{{ strtolower($role) }}" class="btn btn-success btn-sm ml-auto">Tambah 
                     {{ $role }} Baru</a>
-
             </div>
 
             {{-- Flash message for success or failure --}}
@@ -86,9 +85,6 @@
                                                 onclick="return confirm('Are you sure?')">Delete
                                             </a>
                                         </td>
-                                        {{-- <td>
-                                            <a href="{{ route('EditSupkonpro', ['id' => $supkonpro->id, 'jenis' => strtolower($jenis)]) }}" class="btn btn-primary btn-sm">Edit</a>
-                                        </td> --}}
                                     </tr>
                                 @endforeach
                             @else

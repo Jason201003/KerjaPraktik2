@@ -28,7 +28,7 @@
     <div class="card">
         <div class="card-header d-flex align-items-center">
             <h2>Daftar Kamar</h2>
-            <a href="/add-kamar" class="btn btn-success btn-sm ml-auto">Tambah Kamar Baru</a>
+            <a href="{{ route('AddKamar') }}" class="btn btn-success btn-sm ml-auto">Tambah Kamar Baru</a>
         </div>
         
     
@@ -49,7 +49,7 @@
             <form action="{{ route('kamar.search') }}" method="GET" class="d-flex mt-3">
                 <input type="text" name="query" class="form-control w-50 ml-3" placeholder="Search here">
                 <button type="submit" class="btn btn-primary ml-2">Search</button>
-                <a href="{{ route('manage-kamar') }}" class="btn btn-secondary ml-3">Reset</a>
+                <a href="{{ route('AddKamar') }}" class="btn btn-secondary ml-3">Reset</a>
             </form>
             
         </div>
@@ -87,8 +87,16 @@
                                     <td>{{ $kamars->deskripsi }}</td>
                                     <td>{{ $kamars->created_at }}</td>
                                     <td>{{ $kamars->updated_at }}</td>
-                                    <td><a href="/edit-kamar/{{ $kamar->id }}" class="btn btn-primary btn-sm">Edit</a></td>
-                                    <td><a href="/delete-kamar/{{ $kamar->id }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a></td>
+                                    <td>
+                                        <a href="{{ route('edit-kamar', $kamar_id->id) }}" class="btn btn-primary
+                                            btn-sm">Edit
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('kamar.delete', $kamar_id->id) }}" class="btn btn-danger btn-sm" 
+                                            onclick="return confirm('Are you sure?')">Delete
+                                        </a>
+                                    </td>
                                     <td><a href="/detail-kamar/{{ $kamar->id }}" class="btn btn-info btn-sm">Detail</a></td>
                                 </tr>
                             @endforeach

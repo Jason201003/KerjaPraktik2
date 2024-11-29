@@ -73,13 +73,15 @@
                                     <td>{{ $category->slug }}</td>
                                     <td>{{ $category->created_at }}</td>
                                     <td>{{ $category->updated_at }}</td>
-                                    <td><a href="/edit-category/{{ $category->id }}" class="btn btn-primary btn-sm">Edit</a></td>
                                     <td>
-                                        <form action="{{ route('categories.delete', $category->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                        </form>
+                                        <a href="{{ route('edit-category', $category->id) }}" class="btn btn-primary
+                                            btn-sm">Edit
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('categories.delete', $category->id) }}" class="btn btn-danger btn-sm" 
+                                            onclick="return confirm('Are you sure?')">Delete
+                                        </a>
                                     </td>
                                     <td><a href="/detail-category/{{ $category->id }}" class="btn btn-info btn-sm">Detail</a></td>
                                 </tr>
