@@ -1,0 +1,1 @@
+@extends('partials.room_list')
