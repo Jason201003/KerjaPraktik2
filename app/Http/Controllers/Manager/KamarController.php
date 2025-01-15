@@ -25,7 +25,7 @@ class KamarController extends Controller
     {
         $request->validate([
             'room_number' => 'required|unique:kamars,room_number',
-            'kapasitas' => 'required|integer',
+            'kapasitas'  => 'required|integer',
             'tipe_bed' => 'required',
             'harga' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',

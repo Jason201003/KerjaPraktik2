@@ -18,6 +18,8 @@ class Pesanan extends Model
         'nomor_handphone',
         'email',
         'total_harga',
+        'check_in',
+        'check_out',
     ];
 
     // Method untuk menghasilkan id_pesanan dengan format AH-001, AH-002, dst.
@@ -26,6 +28,10 @@ class Pesanan extends Model
         return 'AH-' . str_pad($this->id, 3, '0', STR_PAD_LEFT); // Format berdasarkan 'id' auto increment
     }
 
+    public function booking() 
+    {
+        $this->belongsTo(Booking::class);
+    }
     // Jika Anda ingin melakukan manipulasi id_pesanan saat insert/update, Anda bisa menambahkan method seperti generateIdPesanan, namun tidak lagi perlu
     // public static function generateIdPesanan()
     // {

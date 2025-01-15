@@ -43,6 +43,22 @@
                 <form id="validationForm" class="row g-3 bg-white p-4 rounded">
                     @csrf
                     <h5 style="font-weight: bold">Data Pemesan</h5>
+                    <!-- <div class="col-md-6">
+                        <div>Check In :</div>
+                        {{ $checkIn }}
+                    </div>
+                    <div class="col-md-6">
+                        <div>Check Out :</div>
+                        {{ $checkOut }}
+                    </div> -->
+                    <div class="col-md-6">
+                        <label for="check_in" class="form-label">Check In</label>
+                        <input type="text" class="form-control" id="check_in" value="{{ $checkIn }}"required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="check_out" class="form-label">Check Out</label>
+                        <input type="text" class="form-control" id="check_out" value="{{ $checkOut }}"required>
+                    </div>
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">Nama Depan</label>
                         <input type="text" class="form-control" id="firstName" required>
@@ -243,6 +259,8 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('NoHandphone').value,
                 totalHarga: totalHarga, // Ambil dari harga terbaru
+                check_in: document.getElementById("check_in").value,
+                check_out: document.getElementById("check_out").value,
             };
 
             console.log('Form Data:', formData);
@@ -297,14 +315,20 @@
             document.getElementById('firstName'),
             document.getElementById('lastName'),
             document.getElementById('NoHandphone'),
-            document.getElementById('email')
+            document.getElementById('email'),
+            document.getElementById("check_in"),
+            document.getElementById("check_out")
+            
+
         ];
         
         // Fungsi validasi untuk memeriksa apakah semua input terisi dan valid
         const validateForm = () => {
             let allValid = true;
 
-            // Periksa semua input teks dan email
+            // Periksa semua input teks dan
+            check_out: document.getElementById("check_out").value,
+            //  email
             requiredFields.forEach(field => {
                 if (!field.value.trim()) {
                     allValid = false;
@@ -339,16 +363,18 @@
         event.preventDefault();
         
         const formData = {
-        nama_depan: document.getElementById("firstName").value,
-        nama_belakang: document.getElementById("lastName").value,
-        nomor_handphone: document.getElementById("NoHandphone").value,
-        email: document.getElementById("email").value,
-        total_harga: parseFloat(
-            document.getElementById("totalHarga").textContent
-                .replace("IDR ", "")
-                .replace(",", "")
-        ),
-        _token: document.querySelector('input[name="_token"]').value,
+            nama_depan: document.getElementById("firstName").value,
+            nama_belakang: document.getElementById("lastName").value,
+            nomor_handphone: document.getElementById("NoHandphone").value,
+            email: document.getElementById("email").value,
+            total_harga: parseFloat(
+                document.getElementById("totalHarga").textContent
+                    .replace("IDR ", "")
+                    .replace(",", "")
+            ),
+            check_in: document.getElementById("check_in").value,
+            check_out: document.getElementById("check_out").value,
+            _token: document.querySelector('input[name="_token"]').value,
     };
         // Kirim data pesanan ke backend menggunakan fetch
         fetch('/pesanan', {

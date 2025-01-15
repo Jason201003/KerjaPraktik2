@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Booking;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,12 @@ return new class extends Migration
     {
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id(); 
+            $table->unsignedBigInteger('booking_id'); // Singular sesuai konvensi Laravel
+            $table->foreign('booking_id') // Perbaiki foreign key
+                ->references('id')
+                ->on('bookings')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string('nama_depan');
             $table->string('nama_belakang');
             $table->string('nomor_handphone');
