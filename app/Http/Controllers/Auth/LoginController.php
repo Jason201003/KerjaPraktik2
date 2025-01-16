@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -59,5 +60,18 @@ class LoginController extends Controller
 
         // Default redirection
         return RouteServiceProvider::HOME;
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return redirect()->back()
+            ->withInput($request->only('email', 'remember'))
+            ->with('error', 'Invalid credentials. Please try again.');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect($this->redirectTo())
+            ->with('success', 'Login successful. Welcome back!');
     }
 }

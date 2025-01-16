@@ -36,7 +36,6 @@
                         <label for="usertype">{{ __('User Type') }}</label>
                         <select id="usertype" class="form-control" name="usertype" required>
                             <option value="manager" {{ old('usertype', $user->usertype ?? '') == 'manager' ? 'selected' : '' }}>Manager</option>
-                            <option value="resepsionis" {{ old('usertype', $user->usertype ?? '') == 'resepsionis' ? 'selected' : '' }}>Resepsionis</option>
                         </select>
                     </div>
 

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminKamarController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Guest\BookingController;
 use App\Http\Controllers\Guest\PaymentController;
@@ -54,7 +56,13 @@ Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'a
 
     Route::resource('users', UserController::class);
     Route::delete('users_mass_destroy', [UserController::class, 'massDestroy'])->name('users.mass_destroy');
-    }); 
+
+    Route::resource('categories', AdminCategoryController::class);
+    Route::delete('categories_mass_destroy', [AdminCategoryController::class, 'massDestroy'])->name('categories.mass_destroy');
+
+    Route::resource('kamars', AdminKamarController::class);
+    Route::delete('kamars_mass_destroy', [AdminKamarController::class, 'massDestroy'])->name('kamars.mass_destroy');
+}); 
 
 // Admin end
 
