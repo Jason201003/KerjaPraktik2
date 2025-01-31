@@ -27,15 +27,4 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <span>{{ __('Room Management') }}</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ request()->is('admin/categories') || request()->is('admin/categories/*') ? 'active' : '' }}" href="{{ route('admin.categories.index') }}"> <i class="fa fa-cog mr-2"></i> {{ __('Categories') }}</a>
-                        <a class="collapse-item {{ request()->is('admin/kamars') || request()->is('admin/kamars/*') ? 'active' : '' }}" href="{{ route('admin.kamars.index') }}"> <i class="fa fa-cog mr-2"></i> {{ __('Rooms') }}</a>
-                    </div>
-                </div>
-            </li>
         </ul>

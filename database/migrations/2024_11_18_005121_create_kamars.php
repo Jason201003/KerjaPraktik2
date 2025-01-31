@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('kapasitas'); 
             $table->string('tipe_bed'); 
             $table->decimal('harga')->nullable();
-            $table->enum('status', ['booked','occupied','unoccupied'])->default('unoccupied'); 
+            $table->enum('status', ['booked','unbooked'])->default('unbooked'); 
             $table->foreignIdFor(Category::class)->nullable()->constrained()->cascadeOnUpdate();
             $table->timestamps();
             $table->softDeletes();

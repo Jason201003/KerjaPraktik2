@@ -9,6 +9,8 @@ use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\SmsService;
+
 
 class PesananController extends Controller
 {
@@ -62,10 +64,13 @@ class PesananController extends Controller
                 
             // Decrease the quantity
             $bookingData->quantity -= $validated['quantity'];
-            $bookingData->save();
+            $bookingData->save();            
+
+            $pesananId = 'AH-' . rand(1000, 9999); 
 
             // Store the order in the pesanan table
             $pesanan = Pesanan::create([
+                'pesanan_id' => $pesananId,
                 'kamar_id' => $validated['kamar_id'],
                 'nama_depan' => $validated['nama_depan'],
                 'nama_belakang' => $validated['nama_belakang'],
@@ -77,11 +82,25 @@ class PesananController extends Controller
                 'adults' => $validated['adults'],
                 'children' => $validated['children'],
                 'quantity' => $validated['quantity'],
+                'status' => 'pending'
             ]);
+            
+            if ($bookingData && $bookingData->quantity >= $validated['quantity']) {
+                $bookingData->quantity -= $validated['quantity'];
+                $bookingData->save();
+            } else {
+                Log::error('Quantity not sufficient or bookingData is null', ['quantity' => $validated['quantity']]);
+                return response()->json(['message' => 'Not enough rooms available.'], 400);
+            }
+    
+            if (!$bookingData) {
+                Log::error('Booking data not found for kamar_id', ['kamar_id' => $validated['kamar_id']]);
+                return response()->json(['message' => 'Booking data not found'], 404);
+            }
 
             DB::commit();
 
-            return response()->json(['message' => 'Pesanan successfully created.', 'id_pesanan' => $pesanan->id]);
+            return response()->json(['message' => 'Pesanan successfully created.', 'id_pesanan' => $pesanan->pesanan_id]);
         } catch (\Exception $e) {
             DB::rollBack();
 
@@ -89,7 +108,6 @@ class PesananController extends Controller
         }
     }
     
-
     public function paymentCallback(Request $request)
     {
         $serverKey = config('midtrans.server_key');

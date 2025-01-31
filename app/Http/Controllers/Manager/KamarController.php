@@ -48,7 +48,7 @@ class KamarController extends Controller
             'tipe_bed' => 'required',
             'harga' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'status' => 'required|in:unbooked,booked,occupied,unoccupied',
+            'status' => 'required|in:unbooked,booked',
         ]);
 
         $kamar->update($request->all());

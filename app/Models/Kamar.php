@@ -24,7 +24,7 @@ class Kamar extends Model
 
     public function bookingData()
     {
-        return $this->hasMany(BookingData::class);
+        return $this->hasMany(BookingData::class, 'kamar_id');
     }
 
     public function bookings()

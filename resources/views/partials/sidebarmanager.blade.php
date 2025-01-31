@@ -29,4 +29,14 @@
                     </div>
                 </div>
             </li>       
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <span>{{ __('Pesanan Management') }}</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{ request()->is('manager/pesanan/detail-pesanan') ? 'active' : '' }}" href="{{ route('manager.detail-pesanan.index') }}"> <i class="fa fa-cog mr-2"></i> {{ __('Detail Pesanan') }}</a>
+                    </div>
+                </div>
+            </li>   
         </ul>

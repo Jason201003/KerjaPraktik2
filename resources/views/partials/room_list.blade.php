@@ -89,7 +89,7 @@
             <!-- Tampilkan Pesan Kesalahan -->
             @if ($availableRooms->isEmpty())
                 <div class="col-12 text-center">
-                    <h4 style="color: red;">There is no such room available on {{ $checkIn }}. Please consider booking multiple rooms.</h5>
+                    <h4 style="color: red;">There is no such room available on {{ $checkIn }}. Please consider booking multiple rooms or choose another date.</h5>
                 </div>
             @else
                 @foreach ($availableRooms as $room)

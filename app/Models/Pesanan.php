@@ -13,6 +13,7 @@ class Pesanan extends Model
 
     // Hapus id_pesanan dari $fillable karena tidak perlu disertakan
     protected $fillable = [
+        'pesanan_id',
         'kamar_id',
         'nama_depan',
         'nama_belakang',
@@ -24,11 +25,19 @@ class Pesanan extends Model
         'children',
         'quantity',
         'total_harga',
-        
+        'status'
     ];
 
+    protected $primaryKey = 'pesanan_id'; // Specify the custom primary key
+    public $incrementing = false;
+    
     public function kamar()
     {
         return $this->belongsTo(Kamar::class, 'kamar_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

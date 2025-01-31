@@ -9,7 +9,6 @@
             </h6>
         </div>
         <div class="card-body">
-            <p>Current Time: {{ $currentTime }}</p>
 
             <table class="table table-bordered">
                 <thead>

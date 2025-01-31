@@ -34,7 +34,7 @@ class BookingController extends Controller
         $nights = $checkInDate->diff($checkOutDate)->days;
 
         // Query kamar yang tersedia
-        $availableRooms = Kamar::where('status', 'unoccupied')
+        $availableRooms = Kamar::where('status', 'unbooked')
             ->where('kapasitas', '>=', $totalGuests) // Kapasitas minimal sesuai tamu
             ->whereHas('bookingData', function ($query) use ($checkIn, $checkOut) {
                 // Filter kamar yang tidak overlaping dengan tanggal booking
@@ -49,6 +49,7 @@ class BookingController extends Controller
             })
             ->with('category')
             ->get();
+        
 
         $availableRooms->each(function ($room) use ($nights) {
             $room->total_price = $room->harga_per_malam * $nights;

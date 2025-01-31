@@ -38,9 +38,9 @@
                             </td>
                             <td>
                                 <button type="submit" class="btn btn-primary">{{ __('Save') }}</button>
-                            </td>
+                            </td>  
                         </tr>
-                        @endforeach
+                        @endforeach                   
                     </tbody>
                     
                     @if(session('error'))

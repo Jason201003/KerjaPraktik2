@@ -110,13 +110,16 @@ class BookingTimeController extends Controller
 
     public function availableRooms()
     {
-        // Get the current time
+        // Waktu saat ini
         $currentTime = Carbon::now();
 
-        // Get rooms that are currently open
-        $openRooms = BookingData::where('start_time', '<=', $currentTime)
-            ->where('end_time', '>=', $currentTime)
-            ->with('kamar.category') // Assuming `BookingData` has a relation with the `Kamar` model
+        // Ambil kamar yang tersedia dengan kondisi start_time <= current_time atau start_time >= current_time
+        $openRooms = BookingData::where(function($query) use ($currentTime) {
+                $query->where('start_time', '<=', $currentTime)
+                    ->orWhere('start_time', '>=', $currentTime);
+            })
+            ->where('end_time', '>=', $currentTime) // Pastikan end_time lebih besar atau sama dengan current_time
+            ->with('kamar.category') // Pastikan relasi sudah benar
             ->get();
 
         return view('manager.Booking_Time.available', compact('openRooms', 'currentTime'));

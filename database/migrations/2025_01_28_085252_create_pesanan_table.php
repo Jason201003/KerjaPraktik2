@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pesanan', function (Blueprint $table) {
-            $table->id();
+            $table->string('pesanan_id')->unique();
             $table->unsignedBigInteger('kamar_id');
             $table->string('nama_depan');
             $table->string('nama_belakang');
@@ -24,8 +24,9 @@ return new class extends Migration
             $table->integer('children');
             $table->integer('quantity')->default(1);
             $table->decimal('total_harga', 15, 2);
+            $table->enum('status', ['pending','confirmed'])->default('pending'); 
             $table->timestamps();
-
+            
             $table->foreign('kamar_id')->references('id')->on('kamars')->onDelete('cascade');
         });
         

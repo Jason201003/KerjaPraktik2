@@ -1,9 +1,8 @@
 <?php
 
-use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\AdminKamarController;
 use App\Http\Controllers\Admin\UserController;
+
 use App\Http\Controllers\Guest\BookingController;
 use App\Http\Controllers\Guest\PaymentController;
 use App\Http\Controllers\Guest\PesananController;
@@ -12,6 +11,7 @@ use App\Http\Controllers\Manager\CategoryController;
 use App\Http\Controllers\Manager\KamarController;
 use App\Http\Controllers\Manager\ManagerController;
 use App\Http\Controllers\Manager\BookingTimeController;
+use App\Http\Controllers\Manager\PesananDetailController;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,9 +47,6 @@ Route::post('/payment', [PaymentController::class, 'createTransaction']);
 Route::post('/pesanan', [PesananController::class, 'store'])->name('pesanan.store');
 Route::post('/midtrans/callback', [PesananController::class, 'paymentCallback']);
 
-
-
-
 Route::get('/search-rooms', [BookingController::class, 'search'])->name('search.rooms');
 Route::post('/book-room', [BookingController::class, 'book'])->name('book.room');
 
@@ -64,12 +61,6 @@ Route::group(['middleware' => ['isAdmin','auth'],'prefix' => 'admin', 'as' => 'a
 
     Route::resource('users', UserController::class);
     Route::delete('users_mass_destroy', [UserController::class, 'massDestroy'])->name('users.mass_destroy');
-
-    Route::resource('categories', AdminCategoryController::class);
-    Route::delete('categories_mass_destroy', [AdminCategoryController::class, 'massDestroy'])->name('categories.mass_destroy');
-
-    Route::resource('kamars', AdminKamarController::class);
-    Route::delete('kamars_mass_destroy', [AdminKamarController::class, 'massDestroy'])->name('kamars.mass_destroy');
 }); 
 
 // Admin end
@@ -88,9 +79,12 @@ Route::group(['middleware' => ['isManager','auth'],'prefix' => 'manager', 'as' =
     Route::get('Booking_Time', [BookingTimeController::class, 'index'])->name('Booking_Time.index');
     Route::post('Booking_Time', [BookingTimeController::class, 'store'])->name('Booking_Time.store');
     Route::post('Booking_Time/reset', [BookingTimeController::class, 'reset'])->name('Booking_Time.reset');
-
-
+    Route::post('Booking_Time/close-booking', [BookingTimeController::class, 'closeBooking'])->name('Booking_Time.close');
     Route::get('Booking_Time/available', [BookingTimeController::class, 'availableRooms'])->name('Booking_Time.available');
+
+    Route::get('pesanan/detail-pesanan', [PesananDetailController::class, 'index'])->name('detail-pesanan.index');
+    Route::post('pesanan/confirm/{pesanan_id}', [PesananDetailController::class, 'confirm'])->name('pesanan.confirm');
+
 
 });
 

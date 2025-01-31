@@ -16,7 +16,6 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/main.js') }}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <!-- Font Awesome -->
@@ -44,14 +43,18 @@
                 <form id="validationForm" class="row g-3 bg-white p-4 rounded" method="POST" action="{{ route('pesanan.store') }}">
                     @csrf
                     <h5 style="font-weight: bold">Data Pemesan</h5>
-                    <input type="text" name="kamar_id" id="kamar_id" value="{{ $room->id }}" readonly>
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="kamar_id" id="kamar_id" value="{{ $room->id }}">
+                    <input type="hidden" id="pesanan_id" name="pesanan_id" value="" >
+                    <!-- <input type="hidden" id="status" name="status" value="" > -->
+
                     <div class="col-md-6">
                         <label for="check_in" class="form-label">Check In</label>
-                        <input type="text" class="form-control" id="check_in" value="{{ $checkIn }}"readonly>
+                        <input type="text" class="form-control" id="check_in" name="check_in" value="{{ $checkIn }}"readonly>
                     </div>
                     <div class="col-md-6">
                         <label for="check_out" class="form-label">Check Out</label>
-                        <input type="text" class="form-control" id="check_out" value="{{ $checkOut }}"readonly>
+                        <input type="text" class="form-control" id="check_out" name="check_out" value="{{ $checkOut }}"readonly>
                     </div>
                     <div class="col-md-6">
                         <label for="adults" class="form-label">Adults</label>
@@ -64,22 +67,22 @@
                     
                     <div class="col-md-6">
                         <label for="firstName" class="form-label">Nama Depan</label>
-                        <input type="text" class="form-control" id="firstName" required>
+                        <input type="text" class="form-control" id="firstName" name="firstName  " required>
                         <div class="invalid-feedback">Masukkan nama yang valid</div>
                     </div>
                     <div class="col-md-6">
                         <label for="lastName" class="form-label">Nama Belakang</label>
-                        <input type="text" class="form-control" id="lastName" required>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
                         <div class="invalid-feedback">Masukkan nama yang valid</div>
                     </div>
                     <div class="col-md-6">
                         <label for="NoHandphone" class="form-label">Nomor Handphone</label>
-                        <input type="text" class="form-control" id="NoHandphone" placeholder="+62" required>
+                        <input type="text" class="form-control" id="NoHandphone" name="NoHandphone" placeholder="+62" required>
                         <div class="invalid-feedback">Masukkan Nomor Handphone yang valid.</div>
                     </div>
                     <div class="col-md-6">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="example@gmail.com" required>
                         <div class="invalid-feedback">Masukkan email yang valid.</div>
                     </div>
                     <div class="col-md-6">
@@ -229,10 +232,15 @@
         const rincianHargaContainer = document.getElementById('rincianHargaContainer');
         const totalHargaElement = document.getElementById('totalHarga');
         const childrenAges = JSON.parse('{!! $childrenAges !!}').map(age => parseInt(age, 10));
+        const quantityInput = document.getElementById('quantity');
+
+        quantityInput.addEventListener('input', function () {
+            updateRincianHarga();
+        });
 
         const updateRincianHarga = () => {
             rincianHargaContainer.innerHTML = '';
-            totalHarga = baseHarga;
+            totalHarga = baseHarga * parseInt(quantityInput.value);
 
             // Check if the "Sarapan" checkbox is selected
             const sarapanCheckbox = document.querySelector('#Sarapan');
@@ -309,6 +317,7 @@
                 adults: parseInt(document.getElementById("adults").value),
                 children: parseInt(document.getElementById("children").value),
                 quantity: parseInt(document.getElementById("quantity").value),
+                // status: parseInt(document.getElementById("status").value),
                 _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             };
 
@@ -319,12 +328,15 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                 },
                 body: JSON.stringify(formData),
             })
             .then(response => response.json())
             .then(data => {
                 if (data.message) {
+
+                    document.getElementById("pesanan_id").value = data.pesanan_id;
 
                     // Proses pembayaran dengan Midtrans
                     fetch('/payment', {
@@ -334,6 +346,7 @@
                             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         },
                         body: JSON.stringify({
+                            pesanan_id: data.pesanan_id,
                             totalHarga: totalHarga,
                             firstName: document.getElementById('firstName').value,
                             lastName: document.getElementById('lastName').value,
