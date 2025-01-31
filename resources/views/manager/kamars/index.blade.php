@@ -45,9 +45,8 @@
                                 <td class="text-center">{{ $kamar->stock }}</td>
                                 <td class="text-center">
                                     <span class="
-                                        {{ $kamar->status == 'booked' ? 'text-warning' : '' }}
-                                        {{ $kamar->status == 'occupied' ? 'text-danger' : '' }}
-                                        {{ $kamar->status == 'unoccupied' ? 'text-success' : '' }}
+                                        {{ $kamar->status == 'booked' ? 'text-danger' : '' }}
+                                         {{ $kamar->status == 'unbooked' ? 'text-success' : '' }}
                                         ">
                                         {{ ucfirst($kamar->status) }}
                                     </span>

@@ -71,9 +71,8 @@
                         <label for="status">{{ __('Category') }}</label>
                         <select name="status" class="form-control" required>
                             <option value="booked" {{ old('status', $kamar->status) == 'booked' ? 'selected' : '' }}>Booked</option>
-                            <option value="occupied" {{ old('status', $kamar->status) == 'occupied' ? 'selected' : '' }}>Occupied</option>
-                            <option value="unoccupied" {{ old('status', $kamar->status) == 'unoccupied' ? 'selected' : '' }}>Unoccupied</option>
-                        </select>
+                            <option value="unbooked" {{ old('status', $kamar->status) == 'unbooked' ? 'selected' : '' }}>Unbooked</option>
+\                        </select>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block">{{ __('Save')}}</button>
