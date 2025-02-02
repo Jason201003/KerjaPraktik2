@@ -49,6 +49,13 @@
                                         {{ __('Confirm') }}
                                     </button>
                                 </form>
+                                <form action="{{ route('manager.pesanan.destroy', $pesanan->pesanan_id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this order?');">
+                                        {{ __('Delete') }}
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -79,6 +86,7 @@
                             <th class="text-center">{{ __('Jumlah') }}</th>
                             <th class="text-center">{{ __('Total Harga') }}</th>
                             <th class="text-center">{{ __('Status') }}</th>
+                            <th class="text-center">{{ __('Action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,6 +102,15 @@
                             <td class="text-center">Rp {{ number_format($pesanan->total_harga) }}</td>
                             <td class="text-center">
                                 <span class="text-success">{{ ucfirst($pesanan->status) }}</span>
+                            </td>
+                            <td>
+                                <form action="{{ route('manager.pesanan.destroy', $pesanan->pesanan_id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this order?');">
+                                        {{ __('Delete') }}
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -116,7 +133,7 @@
     let deleteButtonTrans = 'delete selected'
     let deleteButton = {
         text: deleteButtonTrans,
-        url: "{{ route('manager.kamars.mass_destroy') }}",
+        url: "{{ route('manager.pesanan.mass_destroy') }}",
         className: 'btn-danger',
         action: function (e, dt, node, config) {
         var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {

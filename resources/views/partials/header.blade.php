@@ -33,7 +33,7 @@
                         <a href="{{ route('guest.home') }}" class="nav-item nav-link {{ Request::is('home') ? 'active' : '' }}">Home</a>
                         <a href="{{ route('guest.about') }}" class="nav-item nav-link {{ Request::is('about') ? 'active' : '' }}">About</a>
                         <a href="{{ route('guest.service') }}" class="nav-item nav-link {{ Request::is('services') ? 'active' : '' }}">Services</a>
-                        
+                        <a href="{{ route('guest.tracking') }}" class="nav-item nav-link {{ Request::is('tracking') ? 'active' : '' }}">Track</a>
                         <a href="{{ route('login') }}" class="nav-item nav-link {{ Request::is('login') ? 'active' : '' }}">Login</a>
                     </div>
                 </div>

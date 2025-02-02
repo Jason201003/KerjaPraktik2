@@ -56,15 +56,14 @@ class KamarController extends Controller
     }
 
     public function destroy(Kamar $kamar)
-{
-    $kamar->delete();
+    {
+        $kamar->delete();
 
-    // Reset auto-increment jika tidak ada data dalam tabel
-    if (Kamar::count() === 0) {
-        DB::statement('ALTER TABLE kamars AUTO_INCREMENT = 1');
+        // Reset auto-increment jika tidak ada data dalam tabel
+        if (Kamar::count() === 0) {
+            DB::statement('ALTER TABLE kamars AUTO_INCREMENT = 1');
+        }
+
+        return redirect()->route('manager.kamars.index')->with('success', 'Kamar deleted successfully.');
     }
-
-    return redirect()->route('manager.kamars.index')->with('success', 'Kamar deleted successfully.');
-}
-
 }

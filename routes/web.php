@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Guest\BookingController;
 use App\Http\Controllers\Guest\PaymentController;
 use App\Http\Controllers\Guest\PesananController;
-
+use App\Http\Controllers\Guest\TrackingController;
 use App\Http\Controllers\Manager\CategoryController;
 use App\Http\Controllers\Manager\KamarController;
 use App\Http\Controllers\Manager\ManagerController;
@@ -37,6 +37,8 @@ Route::get('/book', function () {
     return view('guest.book');
 })->name('guest.book');
 
+Route::get('/tracking', [TrackingController::class, 'index'])->name('guest.tracking');
+Route::get('/tracking/check', [TrackingController::class, 'check'])->name('guest.tracking.check');
 
 Route::get('/checkout', [PaymentController::class, 'checkout'])->name('checkout');
 Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
@@ -84,7 +86,8 @@ Route::group(['middleware' => ['isManager','auth'],'prefix' => 'manager', 'as' =
 
     Route::get('pesanan/detail-pesanan', [PesananDetailController::class, 'index'])->name('detail-pesanan.index');
     Route::post('pesanan/confirm/{pesanan_id}', [PesananDetailController::class, 'confirm'])->name('pesanan.confirm');
-
+    Route::delete('pesanan/{pesanan_id}', [PesananDetailController::class, 'destroy'])->name('pesanan.destroy');
+    Route::delete('pesanan_mass_destroy', [PesananDetailController::class, 'massDestroy'])->name('pesanan.mass_destroy');
 
 });
 

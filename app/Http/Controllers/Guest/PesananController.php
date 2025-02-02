@@ -62,8 +62,6 @@ class PesananController extends Controller
                 return response()->json(['message' => 'Requested quantity exceeds available stock.'], 400);
             }
                 
-            // Decrease the quantity
-            $bookingData->quantity -= $validated['quantity'];
             $bookingData->save();            
 
             $pesananId = 'AH-' . rand(1000, 9999); 
